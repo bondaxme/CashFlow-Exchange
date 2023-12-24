@@ -3,7 +3,7 @@ import { db } from '../../firebase';
 import { doc, getDoc } from 'firebase/firestore';
 import classes from './CurrencyCalculator.module.css';
 
-const CurrencyCalculator = () => {
+const CurrencyCalculator = ( onCreateRequest ) => {
   const [currencies, setCurrencies] = useState([]);
   const [sourceCurrency, setSourceCurrency] = useState('');
   const [targetCurrency, setTargetCurrency] = useState('');
@@ -35,18 +35,20 @@ const CurrencyCalculator = () => {
     fetchCurrencies();
   }, []);
 
-  const handleAmountChange = (e) => {
-    const inputAmount = e.target.value;
-    setAmount(inputAmount);
-
-    if (sourceCurrency && targetCurrency && inputAmount !== '') {
+  useEffect(() => {
+    if (sourceCurrency && targetCurrency && amount !== '') {
       const sourceRate = rates[sourceCurrency];
       const targetRate = rates[targetCurrency];
-      const convertedValue = ((inputAmount * sourceRate) / targetRate).toFixed(2);
+      const convertedValue = ((amount * sourceRate) / targetRate).toFixed(2);
       setConvertedAmount(convertedValue);
     } else {
       setConvertedAmount('');
     }
+  }, [sourceCurrency, targetCurrency, amount, rates]);
+
+  const handleAmountChange = (e) => {
+    const inputAmount = e.target.value;
+    setAmount(inputAmount);
   };
 
   const handleCurrencyChange = (e, type) => {
@@ -56,47 +58,39 @@ const CurrencyCalculator = () => {
     } else {
       setTargetCurrency(selected);
     }
-
-    if (amount !== '') {
-      const sourceRate = rates[sourceCurrency];
-      const targetRate = rates[targetCurrency];
-      const convertedValue = ((amount * sourceRate) / targetRate).toFixed(2);
-      setConvertedAmount(convertedValue);
-    } else {
-      setConvertedAmount('');
-    }
   };
 
   return (
-    <div>
-      <div>
-        <label className={classes.label}>Select Source Currency:</label>
-        <select className={classes.select} value={sourceCurrency} onChange={(e) => handleCurrencyChange(e, 'source')}>
+    <div className={classes.CurrencyCalculator}>
+      <div className={classes.CurrencyBlock}>
+        <select className={classes.CurrencySelect} value={sourceCurrency} onChange={(e) => handleCurrencyChange(e, 'source')}>
           {currencies.map((currency) => (
             <option key={currency} value={currency}>
               {currency}
             </option>
-          ))}
+           ))}
         </select>
+        <input
+          className={classes.CurrencyInput}
+          type="number"
+          value={amount}
+          onChange={handleAmountChange}
+          placeholder="Enter amount"
+        />
       </div>
-      <div>
-        <label className={classes.label}>Enter Amount:</label>
-        <input className={classes.input} type="number" value={amount} onChange={handleAmountChange} />
-      </div>
-      <div>
-        <label className={classes.label}>Select Target Currency:</label>
-        <select className={classes.select} value={targetCurrency} onChange={(e) => handleCurrencyChange(e, 'target')}>
+      <div className={classes.CurrencyBlock}>
+        <select className={classes.CurrencySelect} value={targetCurrency} onChange={(e) => handleCurrencyChange(e, 'target')}>
           {currencies.map((currency) => (
             <option key={currency} value={currency}>
               {currency}
             </option>
-          ))}
+           ))}
         </select>
+        <input className={classes.CurrencyResult} type="text" value={convertedAmount} readOnly placeholder="You receive" />
       </div>
-      <div>
-        <label className={classes.label}>Converted Amount:</label>
-        <span className={classes.result}>{convertedAmount}</span>
-      </div>
+      {/* <div>
+        <button onClick={onCreateRequest}>Create Request</button>
+      </div> */}
     </div>
   );
 };

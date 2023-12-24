@@ -1,29 +1,48 @@
-  .container {
-    max-width: 400px;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
+  .CurrencyCalculator {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 600px;
   }
   
-  .label {
-    display: block;
-    margin-bottom: 8px;
-    color: var(--color-text);
+  .CurrencyBlock {
+    flex: 1;
+    margin: 10px;
   }
   
-  .select,
-  .input {
-    width: 100%;
+  .CurrencySelect {
+    width: 30%;
+    height: 3.375rem;
     padding: 8px;
-    margin-bottom: 16px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    font-size: 16px;
+    border: 0px;
+    background-color: var(--buttons-color);
+    border-radius: 0.5rem;
   }
   
-  .result {
-    font-size: 18px;
-    font-weight: bold;
-    margin-top: 16px;
+  .CurrencyInput {
+    position: relative;
+    width: 50%;
+    padding-left: 8px;
+    font-size: 16px;
+    border: 0px;
+    height: 3.25rem;
+    border-radius: 0.5rem;
+  }
+
+  .CurrencyInput:focus, .CurrencySelect:focus, .CurrencyResult:focus {
+    outline: none;
   }
   
+  .CurrencyResult {
+    position: relative;
+    border-radius: 0.5rem;
+    width: 50%;
+    padding-left: 8px;
+    font-size: 16px;
+    color: #555;
+    background-color: #eee;
+    cursor: not-allowed;
+    border: 0px;
+    height: 3.25rem;
+  }
