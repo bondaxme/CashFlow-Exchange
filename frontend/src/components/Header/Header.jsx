@@ -1,12 +1,14 @@
 import { Link } from 'react-router-dom';
 import classes from './Header.module.css';
+import logo from '../../assets/icons/logo.svg';
 
 const Header = () => {
+
   return (
     <header className={classes.header}>
       <div className={classes.leftSide}>
         <Link to="/">
-          <img src="./assets/logo.png" alt="Logo" className={classes.logo} />
+          <img className={classes.logo} src={logo} />
         </Link>
         <Link to="/">Home</Link>
       </div>
