@@ -2,9 +2,10 @@ import { useState } from 'react';
 import classes from './SignUpForm.module.css';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { db } from '../../firebase';
-import { collection, addDoc } from 'firebase/firestore';
+// import { collection, addDoc } from 'firebase/firestore';
 import { sendEmailVerification } from 'firebase/auth';
 import { useEffect } from 'react';
+import { doc, setDoc } from 'firebase/firestore';
 
 const SignUpForm = () => {
   const [formData, setFormData] = useState({
@@ -76,23 +77,32 @@ const SignUpForm = () => {
     if (validateForm()) {
       try {
         const auth = getAuth();
-        const usersCollection = collection(db, 'users');
+      
         const userCredential = await createUserWithEmailAndPassword(
           auth,
           formData.email,
           formData.password
         );
 
+        const user = userCredential.user;
+
+        const userRef = doc(db, "users", user?.uid);
+
         await sendEmailVerification(auth.currentUser);
 
-        const user = userCredential.user;
   
-        await addDoc(usersCollection, {
-          uid: user.uid,
-          email: formData.email,
-          firstName: formData.firstName,
-          lastName: formData.lastName,
-        });
+        await setDoc(
+          userRef,
+          {
+            firstName: formData.firstName,
+            lastName: formData.lastName,
+            email: formData.email,
+          },
+          {
+            maxAttempts: 1,
+            backoffMillis: 3000,
+          }
+        );
   
         console.log('User registered successfully:', user);
         console.log('Verification email sent. Please verify your email.');
