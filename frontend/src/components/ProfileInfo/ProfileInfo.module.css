@@ -1,0 +1,77 @@
+
+.profileInfoContainer {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: var(--elements-color);
+  }
+  
+  .profileInfoHeader h2 {
+    color: var(--text-color);
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .profileInfoForm {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .profileInfoLabel {
+    margin-bottom: 10px;
+    color: var(--text-color);
+  }
+  
+  .profileInfoLabel input {
+    width: 50%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+  }
+  
+  .profileInfoSubmitBtn {
+    background-color: var(--buttons-color);
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 15px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .profileInfoSubmitBtn:hover {
+    background-color: var(--buttons-hover-color);
+  }
+  
+  .profileInfoFooter {
+    margin-top: 20px;
+  }
+  
+  .profileInfoFooter h2 {
+    color: #333;
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .profileInfoSignoutBtn {
+    background-color: #7c3833;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .profileInfoSignoutBtn:hover {
+    background-color: #581d1d;
+  }
+  
