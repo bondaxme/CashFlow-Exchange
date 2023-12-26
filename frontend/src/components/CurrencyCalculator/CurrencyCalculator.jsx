@@ -2,14 +2,20 @@ import { useEffect, useState } from 'react';
 import { db } from '../../firebase';
 import { doc, getDoc } from 'firebase/firestore';
 import classes from './CurrencyCalculator.module.css';
+import { serverTimestamp } from 'firebase/firestore';
+import { useAuth } from '../../hooks/useAuth';
+// import { setDoc } from 'firebase/firestore';
+import { collection, addDoc } from 'firebase/firestore';
 
-const CurrencyCalculator = ( onCreateRequest ) => {
+const CurrencyCalculator = ( { showCreateButton } ) => {
   const [currencies, setCurrencies] = useState([]);
   const [sourceCurrency, setSourceCurrency] = useState('');
   const [targetCurrency, setTargetCurrency] = useState('');
   const [amount, setAmount] = useState('');
   const [convertedAmount, setConvertedAmount] = useState('');
   const [rates, setRates] = useState({});
+
+  const user = useAuth();
 
   useEffect(() => {
     const fetchCurrencies = async () => {
@@ -60,6 +66,26 @@ const CurrencyCalculator = ( onCreateRequest ) => {
     }
   };
 
+  const handleCreateRequest = async () => {
+    try {
+      const requestsCollection = collection(db, 'requests');
+
+      await addDoc(requestsCollection, {
+        sourceCurrency,
+        targetCurrency,
+        amount: parseFloat(amount),
+        convertedAmount: parseFloat(convertedAmount),
+        userId: user.uid,
+        timestamp: serverTimestamp(),
+        status: 'pending',
+      });
+
+      console.log('Request created successfully!');
+    } catch (error) {
+      console.error('Error creating request:', error.message);
+    }
+  }
+
   return (
     <div className={classes.CurrencyCalculator}>
       <div className={classes.CurrencyBlock}>
@@ -88,9 +114,16 @@ const CurrencyCalculator = ( onCreateRequest ) => {
         </select>
         <input className={classes.CurrencyResult} type="text" value={convertedAmount} readOnly placeholder="You receive" />
       </div>
-      {/* <div>
-        <button onClick={onCreateRequest}>Create Request</button>
-      </div> */}
+      <div>
+        {console.log(showCreateButton)}
+        {showCreateButton ? (
+          <button className={classes.CreateRequestButton} onClick={handleCreateRequest}>
+            Create Request
+          </button>
+        ) : (
+          null
+        )}
+      </div>
     </div>
   );
 };
