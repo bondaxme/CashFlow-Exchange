@@ -1,0 +1,16 @@
+
+.requestsHistory {
+    margin-top: 20px;
+  }
+  
+  .column {
+    flex: 1;
+    margin: 5px;
+  }
+  
+  .label {
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--text-color);
+  }
+  
