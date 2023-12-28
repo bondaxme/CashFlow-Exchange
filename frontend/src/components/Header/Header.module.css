@@ -1,10 +1,13 @@
 .header {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
+  padding: 0.625rem;
   background-color: var(--elements-color);
   color: var(--text-color);
+  height: 4.5rem;
+  margin-bottom: 3rem;
 }
 
 .leftSide {
@@ -14,10 +17,10 @@
 
 .leftSide a {
   display: flex;
-  align-items: center;
   text-decoration: none;
   color: var(--text-color);
   transition: color 0.3s ease;
+  margin-left: 1rem;
 }
 
 .leftSide a:hover {
@@ -30,18 +33,18 @@
 
 .logo {
   cursor: pointer;
-  width: 50px;
+  width: 3.1rem;
   height: auto;
-  margin-right: 10px;
   filter: invert(100%);
 }
 
 .rightSide {
   display: flex;
+  margin-right: 1rem;
 }
 
 .rightSide a {
-  margin-left: 15px;
+  margin-left: 1rem;
   color: var(--text-color);
   text-decoration: none;
   transition: color 0.3s ease, box-shadow 0.3s ease;
@@ -49,7 +52,7 @@
 
 .rightSide a:hover {
   color: var(--accent-color); 
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.1);
 }
 
 .rightSide a:active {

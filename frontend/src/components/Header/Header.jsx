@@ -9,13 +9,23 @@ const Header = () => {
   return (
     <header className={classes.header}>
       {user.isAuth ? (
-        <div className={classes.leftSide}>
-          <Link to="/">
-            <img className={classes.logo} src={logo} />
-          </Link>
-          <Link to="/">Home</Link>
-          <Link to="/start-exchange">Start Exchange</Link>
-        </div>
+        user.isAdmin ? (
+          <div className={classes.leftSide}>
+            <Link to="/">
+              <img className={classes.logo} src={logo} />
+            </Link>
+            <Link to="/">Home</Link>
+            <Link to="/exchange-requests">Exchange Requests</Link>
+          </div>
+        ) : (
+          <div className={classes.leftSide}>
+            <Link to="/">
+              <img className={classes.logo} src={logo} />
+            </Link>
+            <Link to="/">Home</Link>
+            <Link to="/start-exchange">Start Exchange</Link>
+          </div>
+        )
       ) : (
         <div className={classes.leftSide}>
           <Link to="/">
@@ -35,7 +45,7 @@ const Header = () => {
           <Link to="/signup">Sign Up</Link>
         </div>
       )}
-      
+    
     </header>
   );
 };
