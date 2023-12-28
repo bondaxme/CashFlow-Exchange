@@ -16,7 +16,9 @@
     "axios": "^1.6.2",
     "dotenv": "^16.3.1",
     "firebase-admin": "^11.8.0",
-    "firebase-functions": "^4.3.1"
+    "firebase-functions": "^4.3.1",
+    "nodemailer": "^6.9.7",
+    "nodemailer-smtp-transport": "^2.7.4"
   },
   "devDependencies": {
     "firebase-functions-test": "^3.1.0"
