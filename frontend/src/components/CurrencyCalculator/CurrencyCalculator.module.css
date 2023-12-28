@@ -1,48 +1,102 @@
-  .CurrencyCalculator {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 600px;
-  }
-  
-  .CurrencyBlock {
-    flex: 1;
-    margin: 10px;
-  }
-  
-  .CurrencySelect {
-    width: 30%;
-    height: 3.375rem;
-    padding: 8px;
-    font-size: 16px;
-    border: 0px;
-    background-color: var(--buttons-color);
-    border-radius: 0.5rem;
-  }
-  
-  .CurrencyInput {
-    position: relative;
-    width: 50%;
-    padding-left: 8px;
-    font-size: 16px;
-    border: 0px;
-    height: 3.25rem;
-    border-radius: 0.5rem;
-  }
+.currencyCalculator {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 37.5rem;
+  margin-top: 2rem;
+}
 
-  .CurrencyInput:focus, .CurrencySelect:focus, .CurrencyResult:focus {
-    outline: none;
-  }
-  
-  .CurrencyResult {
-    position: relative;
-    border-radius: 0.5rem;
-    width: 50%;
-    padding-left: 8px;
-    font-size: 16px;
-    color: #555;
-    background-color: #eee;
-    cursor: not-allowed;
-    border: 0px;
-    height: 3.25rem;
-  }
+.currencyBlock {
+
+  text-align: center;
+}
+
+.currencySelect {
+  top: 0.1px;
+  position: relative;
+  left: 0.625rem;
+  min-width: 30%;
+  height: 3.25rem;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 0;
+  background-color: var(--buttons-color);
+  border-radius: 0.5rem;
+  color: var(--text-color);
+  font-family: "SF Pro Display Regular";
+  transition: background-color 0.3s ease-in-out;
+}
+
+.currencySelect:hover {
+  background-color: var(--buttons-hover-color);
+}
+
+.currencySelect:focus {
+  color: var(--text-color);
+}
+
+.option {
+  color: var(--text-color);
+  font-family: "SF Pro Display Regular";
+}
+
+.currencyInput {
+  position: relative;
+  right: 0.625rem;
+  width: 50%;
+  padding-left: 0.5rem;
+  font-size: 1rem;
+  border: 0;
+  height: 3.25rem;
+  border-radius: 0.5rem;
+  background-color: var(--text-color);
+  font-family: "SF Pro Display Regular";
+}
+
+.currencyInput:focus,
+.currencySelect:focus,
+.currencyResult:focus {
+  outline: none;
+}
+
+.currencyResult {
+  right: 0.625rem;
+  position: relative;
+  border-radius: 0.5rem;
+  max-width: 50%;
+  padding-left: 0.5rem;
+  font-size: 16px;
+  color: #555;
+  background-color: var(--text-color);
+  cursor: not-allowed;
+  border: 0;
+  height: 3.25rem;
+  font-family: "SF Pro Display Regular";
+}
+
+.createRequestButton {
+  position: relative;
+  width: 100%;
+  text-align: center;
+  height: 3.25rem;
+  border-radius: 0.5rem;
+  background-color: var(--buttons-color);
+  color: var(--text-color);
+  font-family: "SF Pro Display Regular";
+  border: none;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.createRequestButton:hover {
+  background-color: var(--buttons-hover-color);
+}
+
+.createRequestButton:active {
+  scale: 0.97;
+}
+
+@media screen and (max-width: 768px) {
+    .currencyInput {
+      width: 55%;
+    }
+}

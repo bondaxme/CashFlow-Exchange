@@ -1,40 +1,38 @@
-/* SignUpForm.css */
 .signInContainer {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 100vh;
     background-color: var(--background-color);
   }
   
   .signInForm {
-    width: 300px;
-    padding: 20px;
-    border-radius: 10px;
+    width: 18.75rem;
+    padding: 1.25rem;
+    border-radius: 0.625rem;
     background-color: var(--elements-color);
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.3);
   }
   
-  .logText {
+  .text {
     text-align: center;
-    margin-bottom: 15px;
+    margin-bottom: 1rem;
     color: var(--text-color);
   }
   
   .formGroup {
-    margin-bottom: 10px;
+    margin-bottom: 0.625rem;
   }
   
   .input {
     width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    margin-bottom: 10px;
-    box-sizing: border-box;
+    padding: 0.625rem;
+    margin-top: 0.3125rem;
+    margin-bottom: 0.625rem;
     color: var(--text-color);
     border: 1px solid var(--background-color);
-    border-radius: 5px;
+    border-radius: 0.3125rem;
     background-color: var(--background-color);
+    font-family: "SF Pro Display Regular";
   }
   
   .input:focus {
@@ -43,13 +41,14 @@
 
   .myBtn {
     width: 100%;
-    padding: 10px;
+    padding: 0.625rem;
     border: none;
-    border-radius: 5px;
+    border-radius: 0.3125rem;
     cursor: pointer;
     background-color: var(--buttons-color);
     color: var(--text-color);
     transition: background-color 0.3s ease;
+    font-family: "SF Pro Display Regular";
   }
   
   .myBtn:hover {
@@ -62,13 +61,13 @@
   
   .error {
     color: #ff3333;
-    font-size: 12px;
-    margin-top: 5px;
+    font-size: 0.75rem;
+    margin-top: 0.3125rem;
   }
 
   .popup {
-    margin-top: 5px;
+    margin-top: 0.3125rem;
     color: green;
-    font-size: 12px;
+    font-size: 0.75rem;
   }
   

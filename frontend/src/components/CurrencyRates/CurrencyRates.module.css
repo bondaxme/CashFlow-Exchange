@@ -1,44 +1,46 @@
-.container {
-    max-width: 600px;
-    margin: auto;
-    padding: 1rem;
-  }
+.mainCon {
+  max-width: 40rem;
+  padding: 0rem;
+}
 
 .header {
   font-size: 24px;
-  margin-bottom: 10px;
+  margin-bottom: 0.625rem;
   text-align: center;
   color: var(--text-color);
-  margin-top: 10px;
+  margin-top: 4rem;
 }
 
 .table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 10px 0px;
-    border-radius: 20px;
-    font-family: "SF Pro Display Light";
-    overflow: hidden;
-    background-color: var(--text-color);
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  margin: 0.625rem 0rem;
+  border-radius: 1.25rem;
+  font-family: "SF Pro Display Light";
+  overflow: hidden;
+  background-color: var(--text-color);
+  box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.2);
 }
 
-.tableHeader, .tableFields {
-  padding: 10px;
+.tableHeader,
+.tableFields {
+  padding: 0.625rem;
   text-align: center;
-  width: 100px;
+  width: 6.25rem;
+  color: var(--background-color);
 }
 
 .flag {
   width: 25px;
   height: 15px;
   object-fit: cover;
-  border-radius: 3px;
+  border-radius: 0.1875rem;
   position: relative;
-  top: 2px;
-  margin-right: 3px;
+  top: 0.125rem;
+  margin-right: 0.1875rem;
 }
 
 .tableHeader {
   background-color: #868888;
+  font-family: "SF Pro Display Bold";
+  color: var(--background-color);
 }

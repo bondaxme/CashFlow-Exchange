@@ -1,3 +1,11 @@
+html {
+	box-sizing: border-box;
+  }
+  *,
+  *::before,
+  *::after {
+	box-sizing: inherit;
+  }
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -22,12 +30,28 @@ time, mark, audio, video {
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
 	display: block;
+	width: 100%;
+	padding: 0 1rem;
 }
+
+section {
+	max-width: 1200px;
+	margin: 0 auto;
+	font-family: "SF Pro Display Regular";
+	color: var(--text-color);
+}
+
 body {
-	line-height: 1;
+	background-color: var(--background-color);
+	min-height: 100vh;
+	position: relative;
+	font-family: "SF Pro Display Regular";
 }
 ol, ul {
 	list-style: none;
+}
+a {
+	text-decoration: none;
 }
 blockquote, q {
 	quotes: none;
@@ -53,6 +77,12 @@ table {
 	--active-color: #ffffff;
 	font-family: "SF Pro Display Regular";
   }
+
+#root {
+	min-height: 100%;
+	display: flex;
+	flex-direction: column;
+}
 
 ::-webkit-scrollbar {
 	width: 10px;
@@ -80,7 +110,7 @@ table {
 	font-style: normal;
 	font-weight: normal;
 	src: local("SF-Pro-Display-Regular"),
-		url("assets/fonts/SF-Pro-Display-Regular.otf") format("opentype");
+		url("assets/fonts/SF Pro Display/SF-Pro-Display-Regular.otf") format("opentype");
 }
 
 @font-face {
@@ -88,7 +118,7 @@ table {
 	font-style: normal;
 	font-weight: normal;
 	src: local("SF-Pro-Display-Bold"),
-		url("assets/fonts/SF-Pro-Display-Bold.otf") format("opentype");
+		url("assets/fonts/SF Pro Display/SF-Pro-Display-Bold.otf") format("opentype");
 }
 
 @font-face {
@@ -96,7 +126,7 @@ table {
 	font-style: normal;
 	font-weight: normal;
 	src: local("SF-Pro-Display-Light"),
-		url("assets/fonts/SF-Pro-Display-Light.otf") format("opentype");
+		url("assets/fonts/SF Pro Display/SF-Pro-Display-Light.otf") format("opentype");
 }
 
 @font-face {
@@ -104,5 +134,5 @@ table {
 	font-style: normal;
 	font-weight: normal;
 	src: local("SF-Pro-Display-Medium"),
-		url("assets/fonts/SF-Pro-Display-Medium.otf") format("opentype");
+		url("assets/fonts/SF Pro Display/SF-Pro-Display-Medium.otf") format("opentype");
 }
