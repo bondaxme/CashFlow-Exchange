@@ -1,7 +1,11 @@
+import ProfileInfo from "../../components/ProfileInfo/ProfileInfo";
+import classes from "./Profile.module.css";
+
 const Profile = () => {
   return (
-    <div>
-    </div>
+    <section className={classes.mainContainer}>
+      <ProfileInfo />
+    </section>
   );
 };
 

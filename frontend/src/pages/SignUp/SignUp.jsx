@@ -1,10 +1,11 @@
 import SignUpForm from "../../components/SignUpForm/SignUpForm";
+import classes from "./SignUp.module.css";
 
 const SignUp = () => {
   return (
-    <div>
+    <section className={classes.mainCont}>
       <SignUpForm />
-    </div>
+    </section>
   );
 };
 

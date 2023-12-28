@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import classes from './SignUpForm.module.css';
+// import classes from './SignUpForm.module.css';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { db } from '../../firebase';
 // import { collection, addDoc } from 'firebase/firestore';
 import { sendEmailVerification } from 'firebase/auth';
 import { useEffect } from 'react';
 import { doc, setDoc } from 'firebase/firestore';
+import classes from '../SignInForm/SignInForm.module.css';
 
 const SignUpForm = () => {
   const [formData, setFormData] = useState({
@@ -97,6 +98,13 @@ const SignUpForm = () => {
             firstName: formData.firstName,
             lastName: formData.lastName,
             email: formData.email,
+            currencyDiff: {
+              USD: null,
+              EUR: null,
+              PLN: null,
+              GBP: null,
+            },
+            isAdmin: false,
           },
           {
             maxAttempts: 1,
@@ -125,9 +133,9 @@ const SignUpForm = () => {
   };
 
   return (
-    <div className={classes.signUpContainer}>
-      <div className={classes.signUpForm}>
-        <h2 className={classes.regText}>Sign Up</h2>
+    <div className={classes.signInContainer}>
+      <div className={classes.signInForm}>
+        <h2 className={classes.text}>Sign Up</h2>
         <form onSubmit={handleSubmit}>
           <div className={classes.formGroup}>
             <input className={classes.input}
@@ -175,7 +183,7 @@ const SignUpForm = () => {
         </form>
         {showPopup && (
           <div className={classes.popup}>
-            <p>Account successfully created. Please verify it to sign in.</p>
+            <p>Account successfully created. Please verify you email.</p>
           </div>
         )}
       </div>

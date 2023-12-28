@@ -40,7 +40,7 @@ const CurrencyRates = () => {
   }, []);
 
   return (
-    <div>
+    <section className={classes.mainCon}>
       <h2 className={classes.header}>Exchange rates</h2>
       <table className={classes.table}>
         <thead>
@@ -71,7 +71,7 @@ const CurrencyRates = () => {
           ))}
         </tbody>
       </table>
-    </div>
+    </section>
   );
 };
 

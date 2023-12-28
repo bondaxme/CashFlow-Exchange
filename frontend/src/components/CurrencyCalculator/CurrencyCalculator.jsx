@@ -7,7 +7,7 @@ import { useAuth } from '../../hooks/useAuth';
 // import { setDoc } from 'firebase/firestore';
 import { collection, addDoc } from 'firebase/firestore';
 
-const CurrencyCalculator = ( { showCreateButton } ) => {
+const CurrencyCalculator = ({ showCreateButton }) => {
   const [currencies, setCurrencies] = useState([]);
   const [sourceCurrency, setSourceCurrency] = useState('');
   const [targetCurrency, setTargetCurrency] = useState('');
@@ -54,6 +54,7 @@ const CurrencyCalculator = ( { showCreateButton } ) => {
 
   const handleAmountChange = (e) => {
     const inputAmount = e.target.value;
+    
     setAmount(inputAmount);
   };
 
@@ -87,9 +88,9 @@ const CurrencyCalculator = ( { showCreateButton } ) => {
   }
 
   return (
-    <div className={classes.CurrencyCalculator}>
-      <div className={classes.CurrencyBlock}>
-        <select className={classes.CurrencySelect} value={sourceCurrency} onChange={(e) => handleCurrencyChange(e, 'source')}>
+    <div className={classes.currencyCalculator}>
+      <div className={classes.currencyBlock}>
+        <select className={classes.currencySelect} value={sourceCurrency} onChange={(e) => handleCurrencyChange(e, 'source')}>
           {currencies.map((currency) => (
             <option key={currency} value={currency}>
               {currency}
@@ -97,27 +98,26 @@ const CurrencyCalculator = ( { showCreateButton } ) => {
            ))}
         </select>
         <input
-          className={classes.CurrencyInput}
+          className={classes.currencyInput}
           type="number"
           value={amount}
           onChange={handleAmountChange}
           placeholder="Enter amount"
         />
       </div>
-      <div className={classes.CurrencyBlock}>
-        <select className={classes.CurrencySelect} value={targetCurrency} onChange={(e) => handleCurrencyChange(e, 'target')}>
+      <div className={classes.currencyBlock}>
+        <select className={classes.currencySelect} value={targetCurrency} onChange={(e) => handleCurrencyChange(e, 'target')}>
           {currencies.map((currency) => (
-            <option key={currency} value={currency}>
+            <option className={classes.option} key={currency} value={currency}>
               {currency}
             </option>
            ))}
         </select>
-        <input className={classes.CurrencyResult} type="text" value={convertedAmount} readOnly placeholder="You receive" />
+        <input className={classes.currencyResult} type="text" value={convertedAmount} readOnly placeholder="You receive" />
       </div>
-      <div>
-        {console.log(showCreateButton)}
+      <div className={classes.currencyBlock}>
         {showCreateButton ? (
-          <button className={classes.CreateRequestButton} onClick={handleCreateRequest}>
+          <button className={classes.createRequestButton} onClick={handleCreateRequest}>
             Create Request
           </button>
         ) : (
