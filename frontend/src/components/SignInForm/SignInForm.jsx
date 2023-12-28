@@ -12,7 +12,7 @@ const SignInForm = () => {
     const [errors, setErrors] = useState('');
 
     const navigate = useNavigate();
-  
+
     const handleChange = (e) => {
       const { name, value } = e.target;
       setFormData((prevData) => ({ ...prevData, [name]: value }));
@@ -24,22 +24,28 @@ const SignInForm = () => {
       try {
         const auth = getAuth();
         const { user } = await signInWithEmailAndPassword(auth, formData.email, formData.password);
-  
-        if (user && !user.emailVerified) {
-          setErrors('Email not verified. Please check your email to verify your account.');
-        } else {
-          setErrors('');
+        if (user) {
           navigate('/');
         }
       } catch (error) {
         console.error('Error signing in:', error.message);
-        if (error.code == 'auth/invalid-credential') {
-          setErrors('Invalid email or password');
-        } else if (error.code == 'auth/too-many-requests') {
-          setErrors('Many failed login attempts. Please try again later');
-        } else {
-          setErrors('An error occurred while signing in');
-        } 
+        switch (error.code) {
+          case 'auth/invalid-credential':
+            setErrors('Invalid email or password');
+            break;
+          case 'auth/too-many-requests':
+            setErrors('Many failed login attempts. Please try again later');
+            break;
+          case 'auth/invalid-email':
+            setErrors('Invalid email');
+            break;
+          case 'auth/missing-password':
+            setErrors('Missing password');
+            break;
+          default:
+            setErrors('An error occurred while signing in');
+            break;
+        }
       }
     };
   
@@ -47,7 +53,7 @@ const SignInForm = () => {
     return (
       <div className={classes.signInContainer}>
         <div className={classes.signInForm}>
-          <h2 className={classes.logText}>Login</h2>
+          <h2 className={classes.text}>Login</h2>
           <form onSubmit={handleSubmit}>
             <div className={classes.formGroup}>
               <input

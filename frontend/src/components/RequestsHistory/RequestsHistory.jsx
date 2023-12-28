@@ -5,8 +5,9 @@ import RequestRow from '../RequestRow/RequestRow';
 import classes from './RequestsHistory.module.css';
 import { query, where, orderBy } from 'firebase/firestore';
 import { useAuth } from '../../hooks/useAuth';
+import { doc } from 'firebase/firestore';
 
-const RequestsHistory = () => {
+const RequestsHistory = ({ showAdmin }) => {
   const [requestsHistory, setRequestsHistory] = useState([]);
   const user = useAuth();
 
@@ -16,11 +17,21 @@ const RequestsHistory = () => {
       try {
         const requestsCollection = collection(db, 'requests');
 
-        const requestsQuery = query(
+        let requestsQuery = null;
+        if (showAdmin) {
+          requestsQuery = query(
             requestsCollection,
-            where('userId', '==', user.uid),
             orderBy('timestamp', 'desc')
-        );
+          );
+
+
+        } else {
+          requestsQuery = query(
+              requestsCollection,
+              where('userId', '==', user.uid),
+              orderBy('timestamp', 'desc')
+          );
+        }
         
         const querySnapshot = await getDocs(requestsQuery);
 
@@ -28,6 +39,7 @@ const RequestsHistory = () => {
           id: doc.id,
           ...doc.data(),
         }));
+
 
         setRequestsHistory(historyData);
       } catch (error) {
@@ -40,27 +52,47 @@ const RequestsHistory = () => {
 
   return (
     <div className={classes.requestsHistory}>
-      <div className={classes.column}>
-        <p className={classes.label}>Source Currency</p>
-      </div>
-      <div className={classes.column}>
-        <p className={classes.label}>Target Currency</p>
-      </div>
-      <div className={classes.column}>
-        <p className={classes.label}>Amount</p>
-      </div>
-      <div className={classes.column}>
-        <p className={classes.label}>Converted Amount</p>
-      </div>
-      <div className={classes.column}>
-        <p className={classes.label}>Timestamp</p>
-      </div>
-      <div className={classes.column}>
-        <p className={classes.label}>Status</p>
+      <table>
+        <thead>
+          <tr className={classes.header}>
+            <th className={classes.label}>From</th>
+            <th className={classes.label}>To</th>
+            <th className={classes.label}>Am1</th>
+            <th className={classes.label}>Am2</th>
+            <th className={classes.label}>Time</th>
+            <th className={classes.label}>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {requestsHistory.map((request) => (
+            <RequestRow key={request.id} request={request} showName={showAdmin} />
+          ))}
+        </tbody>
+      </table>
+
+      {/* <div className={classes.header}>
+        <div className={classes.column}>
+          <p className={classes.label}>From</p>
+        </div>
+        <div className={classes.column}>
+          <p className={classes.label}>To</p>
+        </div>
+        <div className={classes.column}>
+          <p className={classes.label}>Am1</p>
+        </div>
+        <div className={classes.column}>
+          <p className={classes.label}>Am2</p>
+        </div>
+        <div className={classes.column}>
+          <p className={classes.label}>Time</p>
+        </div>
+        <div className={classes.column}>
+          <p className={classes.label}>Status</p>
+        </div>
       </div>
       {requestsHistory.map((request) => (
-        <RequestRow key={request.id} request={request} />
-      ))}
+        <RequestRow key={request.id} request={request} showName={showAdmin} />
+      ))} */}
     </div>
   );
 };

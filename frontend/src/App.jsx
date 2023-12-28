@@ -11,6 +11,7 @@ import { auth } from "./firebase";
 import { db } from "./firebase";
 import { doc, onSnapshot } from "firebase/firestore";
 import Profile from "./pages/Profile/Profile";
+import AdminExchangeRequests from "./pages/AdminExchangeRequests/AdminExchangeRequests";
 
 
 function App() {
@@ -28,6 +29,8 @@ function App() {
                 firstName: data.firstName,
                 lastName: data.lastName,
                 email: user.email,
+                currencyDiff: data.currencyDiff,
+                isAdmin: data.isAdmin,
                 uid: user.uid,
               })
             );
@@ -52,8 +55,9 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/" element={<Home />} />
         <Route path="/signin" element={<SignIn />} />
-        <Route path="/start-exchange" element={<StartExchange />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/start-exchange" element={<StartExchange />} />
+        <Route path="/exchange-requests" element={<AdminExchangeRequests />} />
       </Routes>
     </>
   )
