@@ -5,19 +5,21 @@
   box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.3);
   background-color: #c5c4c4;
   border-radius: 1rem;
-  margin-top: 5vh;
 }
 
-.fullName, .password {
+.fullName,
+.password {
   display: flex;
   justify-content: space-between;
 }
 
-.fullNameLabel, .passwordInfoLabel {
+.fullNameLabel,
+.passwordInfoLabel {
   width: 49%;
 }
 
-.fullNameInput, .passwordInput {
+.fullNameInput,
+.passwordInput {
   padding: 0.625rem;
   font-size: 16px;
   border: none;
@@ -26,6 +28,7 @@
   transition: border-color 0.3s;
   background-color: grey;
   font-family: "SF Pro Display Regular";
+  box-shadow: 0 0 0.325rem rgba(0, 0, 0, 0.3);
 }
 
 .profileInfoHeader {
@@ -39,15 +42,25 @@
   flex-direction: column;
 }
 
-.profileInfoLabel, .fullNameLabel, .passwordInfoLabel {
-  margin-bottom: 0.625rem;
+.profileInfoLabel,
+.fullNameLabel,
+.passwordInfoLabel {
+  margin-bottom: 1.2rem;
   font-size: 16px;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
+.currencyInfoLabel {
+  position: relative;
+  margin-bottom: 1rem;
+}
 
- .profileInfoInput, .currency, .fullNameInput, .passwordInput{
+.profileInfoInput,
+.currency,
+.fullNameInput,
+.passwordInput {
   width: 100%;
   padding: 0.625rem;
   font-size: 16px;
@@ -57,14 +70,20 @@
   transition: border-color 0.3s;
   background-color: grey;
   font-family: "SF Pro Display Regular";
+  box-shadow: 0 0 0.325rem rgba(0, 0, 0, 0.3);
 }
 
-
-.profileInfoInput:focus, .currency:focus, .fullNameInput:focus, .passwordInput:focus{
+.profileInfoInput:focus,
+.currency:focus,
+.fullNameInput:focus,
+.passwordInput:focus {
   outline: 2px solid var(--buttons-color);
 }
 
-.profileInfoInput::placeholder, .currency::placeholder, .fullNameInput::placeholder, .passwordInput::placeholder {
+.profileInfoInput::placeholder,
+.currency::placeholder,
+.fullNameInput::placeholder,
+.passwordInput::placeholder {
   color: #555;
 }
 
@@ -73,15 +92,34 @@
   font-size: 0.8rem;
   margin-bottom: 0.625rem;
   margin-top: 0.1rem;
+  position: absolute;
+  top: 63px;
+}
+
+.errorCur {
+  color: #e74c3c;
+  font-size: 0.8rem;
+  margin-bottom: 0.625rem;
+  margin-top: 0.1rem;
+  position: absolute;
+  top: 32px;
+  left: 10px;
 }
 
 .paragraph {
   font-size: 14px;
-  margin-top: 0.1rem;
+  margin-top: 1rem;
   color: #555;
 }
 
+.btnDiv {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+
 .profileInfoSubmitBtn {
+  width: 100%;
   background-color: var(--buttons-color);
   color: var(--text-color);
   padding: 0.625rem;
@@ -91,6 +129,7 @@
   font-size: 16px;
   transition: background-color 0.3s;
   font-family: "SF Pro Display Regular";
+  box-shadow: 0 0 0.325rem rgba(0, 0, 0, 0.3);
 }
 
 .profileInfoSubmitBtn:hover {
@@ -112,6 +151,7 @@
   font-size: 16px;
   transition: background-color 0.3s;
   font-family: "SF Pro Display Regular";
+  box-shadow: 0 0 0.325rem rgba(0, 0, 0, 0.3);
 }
 
 .profileInfoSignoutBtn:hover {
@@ -121,7 +161,6 @@
 .currBlock {
   display: flex;
   text-align: center;
-
 }
 
 .currency {
@@ -132,29 +171,51 @@
 }
 
 .popup {
-  margin-top: 0.3125rem;
+  margin-top: 0.23rem;
   color: green;
   font-size: 0.8rem;
+  position: absolute;
+  top: 38px;
 }
 
 @media screen and (max-width: 768px) {
   .profileInfoContainer {
     max-width: 90%;
+    margin-bottom: 1.25rem;
   }
-  .fullName, .password {
+  .fullName,
+  .password {
     flex-direction: column;
   }
-  .fullNameLabel, .passwordInfoLabel {
+  .fullNameLabel,
+  .passwordInfoLabel {
     width: 100%;
   }
-  .fullNameInput, .passwordInput {
+  .fullNameInput,
+  .passwordInput {
     width: 100%;
   }
   .currencyInfoLabel {
     margin-top: 0.3125rem;
+    margin-bottom: 1.8rem;
   }
   .currency {
     margin-top: 0.1875rem;
-    max-width: 70%;
+    max-width: 40%;
+  }
+  .passwordInfoLabel {
+    margin-bottom: 1.9rem;
+  }
+  .paragraph {
+    margin-top: 0.625rem;
+  }
+  .errorCur {
+    color: #e74c3c;
+    font-size: 0.8rem;
+    margin-bottom: 0.625rem;
+    margin-top: 0.1rem;
+    position: absolute;
+    top: 24px;
+    left: 10px;
   }
 }

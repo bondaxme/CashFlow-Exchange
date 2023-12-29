@@ -3,13 +3,15 @@ import classes from "./StartExchange.module.css";
 import RequestsHistory from "../../components/RequestsHistory/RequestsHistory";
 
 const StartExchange = () => {
-
   return (
-      <div className={classes.mainContainer}>
-        <CurrencyCalculator showCreateButton />
-        <RequestsHistory />
-      </div>
-    );
-  };
-  
-  export default StartExchange;
+    <section className={classes.mainContainer}>
+      <h1 className={classes.header}>
+        Here you can create a currency exchange request
+      </h1>
+      <CurrencyCalculator showCreateButton />
+      <RequestsHistory />
+    </section>
+  );
+};
+
+export default StartExchange;

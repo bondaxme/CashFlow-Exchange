@@ -22,9 +22,8 @@ const CurrencyRates = () => {
 
   useEffect(() => {
     const fetchRates = async () => {
-
       try {
-        const ratesDoc = doc(db, 'rates', 'latestRates');
+        const ratesDoc = doc(db, "rates", "latestRates");
         const docSnapshot = await getDoc(ratesDoc);
 
         if (docSnapshot.exists()) {

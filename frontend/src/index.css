@@ -1,138 +1,223 @@
 html {
-	box-sizing: border-box;
-  }
-  *,
-  *::before,
-  *::after {
-	box-sizing: inherit;
-  }
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
+  box-sizing: border-box;
+}
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
-	display: block;
-	width: 100%;
-	padding: 0 1rem;
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+  width: 100%;
 }
 
 section {
-	max-width: 1200px;
-	margin: 0 auto;
-	font-family: "SF Pro Display Regular";
-	color: var(--text-color);
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: "SF Pro Display Regular";
+  color: var(--text-color);
 }
 
 body {
-	background-color: var(--background-color);
-	min-height: 100vh;
-	position: relative;
-	font-family: "SF Pro Display Regular";
+  background-color: var(--background-color);
+  min-height: 100vh;
+  position: relative;
+  padding-bottom: 240px;
+  font-family: "SF Pro Display Regular";
 }
-ol, ul {
-	list-style: none;
+ol,
+ul {
+  list-style: none;
 }
 a {
-	text-decoration: none;
+  text-decoration: none;
 }
-blockquote, q {
-	quotes: none;
+blockquote,
+q {
+  quotes: none;
 }
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content: '';
-	content: none;
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
 }
 table {
-	border-collapse: collapse;
-	border-spacing: 0;
+  border-collapse: collapse;
+  border-spacing: 0;
 }
 
 :root {
-    --background-color: #212121;
-    --text-color: #dddddd;
-	--elements-color: #323232;
-	--buttons-color: #0D7377;
-	--buttons-hover-color: #0A4B4D;
-	--light-additional: #14FFEC;
-	--accent-color: #9c9c9c;
-	--active-color: #ffffff;
-	font-family: "SF Pro Display Regular";
-  }
+  --background-color: #212121;
+  --text-color: #c5c4c4;
+  --elements-color: #323232;
+  --buttons-color: #0d7377;
+  --buttons-hover-color: #0a4b4d;
+  --light-additional: #14ffec;
+  --accent-color: #9c9c9c;
+  --active-color: #ffffff;
+  font-family: "SF Pro Display Regular";
+}
 
 #root {
-	min-height: 100%;
-	display: flex;
-	flex-direction: column;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 ::-webkit-scrollbar {
-	width: 10px;
-  }
-  
-  ::-webkit-scrollbar-thumb {
-	background-color: #4a4a4a;
-	border-radius: 5px;
-  }
-  
-  ::-webkit-scrollbar-track {
-	background-color: #1f1f1f;
-  }
-  
-  ::-webkit-scrollbar-thumb:hover {
-	background-color: #555;
-  }
-  
-  ::-webkit-scrollbar-thumb:active {
-	background-color: #333;
-  }
-  
-@font-face {
-	font-family: "SF Pro Display Regular";
-	font-style: normal;
-	font-weight: normal;
-	src: local("SF-Pro-Display-Regular"),
-		url("assets/fonts/SF Pro Display/SF-Pro-Display-Regular.otf") format("opentype");
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #4a4a4a;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #1f1f1f;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background-color: #333;
 }
 
 @font-face {
-	font-family: "SF Pro Display Bold";
-	font-style: normal;
-	font-weight: normal;
-	src: local("SF-Pro-Display-Bold"),
-		url("assets/fonts/SF Pro Display/SF-Pro-Display-Bold.otf") format("opentype");
+  font-family: "SF Pro Display Regular";
+  font-style: normal;
+  font-weight: normal;
+  src: local("SF-Pro-Display-Regular"),
+    url("assets/fonts/SF Pro Display/SF-Pro-Display-Regular.otf")
+      format("opentype");
 }
 
 @font-face {
-	font-family: "SF Pro Display Light";
-	font-style: normal;
-	font-weight: normal;
-	src: local("SF-Pro-Display-Light"),
-		url("assets/fonts/SF Pro Display/SF-Pro-Display-Light.otf") format("opentype");
+  font-family: "SF Pro Display Bold";
+  font-style: normal;
+  font-weight: normal;
+  src: local("SF-Pro-Display-Bold"),
+    url("assets/fonts/SF Pro Display/SF-Pro-Display-Bold.otf")
+      format("opentype");
 }
 
 @font-face {
-	font-family: "SF Pro Display Medium";
-	font-style: normal;
-	font-weight: normal;
-	src: local("SF-Pro-Display-Medium"),
-		url("assets/fonts/SF Pro Display/SF-Pro-Display-Medium.otf") format("opentype");
+  font-family: "SF Pro Display Light";
+  font-style: normal;
+  font-weight: normal;
+  src: local("SF-Pro-Display-Light"),
+    url("assets/fonts/SF Pro Display/SF-Pro-Display-Light.otf")
+      format("opentype");
+}
+
+@font-face {
+  font-family: "SF Pro Display Medium";
+  font-style: normal;
+  font-weight: normal;
+  src: local("SF-Pro-Display-Medium"),
+    url("assets/fonts/SF Pro Display/SF-Pro-Display-Medium.otf")
+      format("opentype");
 }

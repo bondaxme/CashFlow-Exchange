@@ -3,13 +3,15 @@
 }
 
 .header {
-  padding: 1.25rem;
+  padding: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
   align-items: center;
   flex-wrap: wrap;
   justify-content: space-between;
+  margin-bottom: 3px;
+  min-width: 46rem;
 }
 
 .column {
@@ -17,8 +19,36 @@
 }
 
 .label {
+  flex: 1;
+  font-size: 14px;
+  font-family: "SF Pro Display Bold";
+  color: var(--text-color);
+  text-align: center;
+}
+
+.status {
+  font-family: "SF Pro Display Bold";
+  width: 12.5%;
   font-size: 14px;
   font-weight: bold;
   color: var(--text-color);
-  text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+  .header {
+    min-width: 90%;
+    padding: 0.25rem 0px;
+    text-align: center;
+  }
+  .label {
+    margin: 3px 0px;
+  }
+  .requestsHistory {
+    width: 100%;
+  }
+  .table {
+    margin-left: auto;
+    margin-right: auto;
+    width: 95%;
+  }
 }

@@ -37,10 +37,27 @@
   position: relative;
   top: 0.125rem;
   margin-right: 0.1875rem;
+  box-shadow: 0 0 0.325rem rgba(0, 0, 0, 0.3);
 }
 
 .tableHeader {
   background-color: #868888;
   font-family: "SF Pro Display Bold";
   color: var(--background-color);
+}
+
+@media screen and (max-width: 768px) {
+  .table {
+    width: 95%;
+    margin-left: 0;
+  }
+  .header {
+    margin-top: 1.5rem;
+  }
+
+  .table {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 23.625rem;
+  }
 }

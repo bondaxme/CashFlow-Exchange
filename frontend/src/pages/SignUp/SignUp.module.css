@@ -1,6 +1,6 @@
 .mainCont {
-    display: flex;
-    flex-direction: column;
-    background-color: var(--background-color);
-    margin-top: 20vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background-color);
+  margin-top: 10vh;
 }

@@ -1,44 +1,35 @@
-import { useState } from 'react';
+import { useState } from "react";
 // import classes from './SignUpForm.module.css';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
-import { db } from '../../firebase';
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { db } from "../../firebase";
 // import { collection, addDoc } from 'firebase/firestore';
-import { sendEmailVerification } from 'firebase/auth';
-import { useEffect } from 'react';
-import { doc, setDoc } from 'firebase/firestore';
-import classes from '../SignInForm/SignInForm.module.css';
+import { sendEmailVerification } from "firebase/auth";
+import { useEffect } from "react";
+import { doc, setDoc } from "firebase/firestore";
+import classes from "../SignInForm/SignInForm.module.css";
+import { useNavigate } from "react-router-dom";
 
 const SignUpForm = () => {
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
   });
 
   const [errors, setErrors] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
   });
 
-  const [showPopup, setShowPopup] = useState(false);
-
-  useEffect(() => {
-    if (showPopup) {
-      const timeoutId = setTimeout(() => {
-        setShowPopup(false);
-      }, 5000);
-
-      return () => clearTimeout(timeoutId);
-    }
-  }, [showPopup]);
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
-    setErrors((prevErrors) => ({ ...prevErrors, [name]: '' }));
+    setErrors((prevErrors) => ({ ...prevErrors, [name]: "" }));
   };
 
   const validateForm = () => {
@@ -46,25 +37,24 @@ const SignUpForm = () => {
     const newErrors = {};
 
     const firstNameRegex = /^[a-zA-Z]+$/;
-    if (!formData.firstName.trim() || !firstNameRegex.test(formData.firstName)) {
-      newErrors.firstName = 'Valid first name is required';
-      isValid = false;
-    }
-
     const lastNameRegex = /^[a-zA-Z]+$/;
-    if (!formData.lastName.trim() || !lastNameRegex.test(formData.lastName)) {
-      newErrors.lastName = 'Valid last name is required';
-      isValid = false;
-    }
-
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!formData.email.trim() || !emailRegex.test(formData.email)) {
-      newErrors.email = 'Valid email is required';
-      isValid = false;
-    }
 
-    if (formData.password.length < 6) {
-      newErrors.password = 'Password must be at least 6 characters';
+    const validateName = (fieldName, regex) => {
+      if (!formData[fieldName].trim() || !regex.test(formData[fieldName])) {
+        newErrors[fieldName] = `Valid ${fieldName.toLowerCase()} is required`;
+        isValid = false;
+      }
+    };
+
+    validateName("firstName", firstNameRegex);
+    validateName("lastName", lastNameRegex);
+    validateName("email", emailRegex);
+
+    const passwordRegex = /^[a-zA-Z0-9!@#$%^&*]{6,16}$/;
+    if (!passwordRegex.test(formData.password)) {
+      newErrors.password =
+        "Password must be 6-16 characters long, contain at least one number and one special character";
       isValid = false;
     }
 
@@ -78,7 +68,7 @@ const SignUpForm = () => {
     if (validateForm()) {
       try {
         const auth = getAuth();
-      
+
         const userCredential = await createUserWithEmailAndPassword(
           auth,
           formData.email,
@@ -91,7 +81,6 @@ const SignUpForm = () => {
 
         await sendEmailVerification(auth.currentUser);
 
-  
         await setDoc(
           userRef,
           {
@@ -111,16 +100,16 @@ const SignUpForm = () => {
             backoffMillis: 3000,
           }
         );
-  
-        console.log('User registered successfully:', user);
-        console.log('Verification email sent. Please verify your email.');
-        setShowPopup(true);
+
+        console.log("User registered successfully:", user);
+        console.log("Verification email sent. Please verify your email.");
+        navigate("/");
       } catch (error) {
-        console.error('Error registering user:', error.message);
-        if (error.code === 'auth/email-already-in-use') {
+        console.error("Error registering user:", error.message);
+        if (error.code === "auth/email-already-in-use") {
           setErrors((prevErrors) => ({
             ...prevErrors,
-            general: 'Email is already in use',
+            general: "Email is already in use",
           }));
         } else {
           setErrors((prevErrors) => ({
@@ -138,7 +127,8 @@ const SignUpForm = () => {
         <h2 className={classes.text}>Sign Up</h2>
         <form onSubmit={handleSubmit}>
           <div className={classes.formGroup}>
-            <input className={classes.input}
+            <input
+              className={classes.input}
               type="text"
               name="firstName"
               value={formData.firstName}
@@ -148,7 +138,8 @@ const SignUpForm = () => {
             <div className={classes.error}>{errors.firstName}</div>
           </div>
           <div className={classes.formGroup}>
-            <input className={classes.input}
+            <input
+              className={classes.input}
               type="text"
               name="lastName"
               value={formData.lastName}
@@ -158,34 +149,34 @@ const SignUpForm = () => {
             <div className={classes.error}>{errors.lastName}</div>
           </div>
           <div className={classes.formGroup}>
-            <input className={classes.input}
+            <input
+              className={classes.input}
               type="email"
               name="email"
               value={formData.email}
               onChange={handleInputChange}
               placeholder="Email"
+              autoComplete="username"
             />
             <div className={classes.error}>{errors.email}</div>
           </div>
           <div className={classes.formGroup}>
-            <input className={classes.input}
+            <input
+              className={classes.input}
               type="password"
               name="password"
               value={formData.password}
               onChange={handleInputChange}
               placeholder="Password"
+              autoComplete="current-password"
             />
             <div className={classes.error}>{errors.password}</div>
           </div>
 
-          <button type="submit" className={classes.myBtn}>Sign Up</button>
-          {errors.general && <div className={classes.error}>{errors.general}</div>}
+          <button type="submit" className={classes.myBtn}>
+            Sign Up
+          </button>
         </form>
-        {showPopup && (
-          <div className={classes.popup}>
-            <p>Account successfully created. Please verify you email.</p>
-          </div>
-        )}
       </div>
     </div>
   );

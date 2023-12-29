@@ -1,0 +1,44 @@
+/* Footer.module.css */
+
+.footer {
+  background-color: #333;
+  color: var(--text-color);
+  padding: 1.25rem 0px 0.625rem;
+  position: absolute;
+  bottom: 0;
+}
+
+.footerContent {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.footerSection {
+  width: 35%;
+}
+
+.footerSection h3 {
+  font-size: 1.3rem;
+  margin-bottom: 0.625rem;
+}
+
+.footerSection p {
+  font-size: 0.9rem;
+}
+
+.footerBottom {
+  text-align: center;
+  font-size: 0.8rem;
+  margin-top: 0.625rem;
+}
+
+@media screen and (max-width: 768px) {
+  .footerSection {
+    width: 90%;
+    margin-bottom: 15px;
+  }
+  .footerBottom {
+    margin-top: 0px;
+  }
+}

@@ -1,10 +1,9 @@
-require('dotenv').config();
+require("dotenv").config();
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 const axios = require("axios");
 const nodemailer = require("nodemailer");
-const smtpTransport = require('nodemailer-smtp-transport');
-
+const smtpTransport = require("nodemailer-smtp-transport");
 
 admin.initializeApp();
 
@@ -59,7 +58,7 @@ exports.fetchRatesAndWriteToFirestore = functions.pubsub
       const usersSnapshot = await admin.firestore().collection("users").get();
 
       const sendEmailPromises = [];
-      
+
       usersSnapshot.forEach(async (userDoc) => {
         const userData = userDoc.data();
         const currencyDiff = userData.currencyDiff || {};
@@ -84,22 +83,28 @@ exports.fetchRatesAndWriteToFirestore = functions.pubsub
 
         const emailMessages = Object.entries(rateDifferences)
           .filter(
-            ([currency, diff]) => (Math.abs(diff) >= currencyDiff[currency]) && currencyDiff[currency] !== null
+            ([currency, diff]) =>
+              Math.abs(diff) >= currencyDiff[currency] &&
+              currencyDiff[currency] !== null
           )
           .map(([currency, diff]) => {
             return `${currency} rate changed by ${diff.toFixed(
               2
-            )}\nOld rate: ${docSnapshot.data()[currency].toFixed(
+            )}\nOld rate: ${docSnapshot
+              .data()
+              [currency].toFixed(2)}\nNew rate: ${newRates[currency].toFixed(
               2
-            )}\nNew rate: ${newRates[currency].toFixed(2)}\n`;
+            )}\n`;
           });
 
         const message = emailMessages.join("");
 
         console.log(message);
-        
+
         if (message) {
-          sendEmailPromises.push(sendEmailNotification(userData.email, message));
+          sendEmailPromises.push(
+            sendEmailNotification(userData.email, message)
+          );
         }
       });
 
@@ -117,17 +122,19 @@ exports.fetchRatesAndWriteToFirestore = functions.pubsub
   });
 
 async function sendEmailNotification(email, message) {
-  console.log(process.env.GMAIL_ADDRESS, process.env.GMAIL_PASSWORD)
-  const transporter = nodemailer.createTransport(smtpTransport({
-    host: 'smtp.gmail.com',
-    port: 465,
-    secure: true,
-    service: 'gmail',
-    auth: {
-      user: process.env.GMAIL_ADDRESS,
-      pass: process.env.GMAIL_PASSWORD,
-    },
-  }));
+  console.log(process.env.GMAIL_ADDRESS, process.env.GMAIL_PASSWORD);
+  const transporter = nodemailer.createTransport(
+    smtpTransport({
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true,
+      service: "gmail",
+      auth: {
+        user: process.env.GMAIL_ADDRESS,
+        pass: process.env.GMAIL_PASSWORD,
+      },
+    })
+  );
 
   const mailOptions = {
     from: process.env.GMAIL_ADDRESS,
@@ -137,9 +144,9 @@ async function sendEmailNotification(email, message) {
   };
 
   await transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-          return console.log(error); 
-      }
+    if (error) {
+      return console.log(error);
+    }
     console.log("Message sent: " + info.response);
   });
 }

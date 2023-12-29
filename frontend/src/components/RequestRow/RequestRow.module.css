@@ -1,33 +1,42 @@
-
 .requestRow {
-    border: 1px solid #ddd;
-    padding: 1.25rem;
-    margin-bottom: 1.25rem;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #f9f9f9;
-    border-radius: 0.5rem;
-    min-width: 37.9375rem;
-  }
+  border-right: 1px solid var(--text-color);
+  padding: 0.6rem 0rem;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--text-color);
+  border-radius: 0.7rem;
+  min-width: 46rem;
+  box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.3);
+}
 
-  
-  .info {
-    font-size: 16px;
-    margin: 0rem 1.25rem;
-    font-weight: bold;
-    color: var(--background-color);
-  }
+.info {
+  text-align: center;
+  flex: 1;
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--background-color);
+}
+
+.select {
+  flex: 1;
+  text-align: center;
+  font-size: 13px;
+  width: 92%;
+  font-family: "SF Pro Display Regular";
+  border-radius: 0.3rem;
+  color: var(--background-color);
+}
+
+.select:active,
+.select:focus {
+  outline: none;
+}
 
 @media screen and (max-width: 768px) {
-    .requestRow {
-      min-width: 100%;
-      padding: 4px;
-      text-align: center;
-    }
-    .info {
-      margin: 3px;
-    }
+  .requestRow {
+    min-width: 100%;
+  }
 }
-  

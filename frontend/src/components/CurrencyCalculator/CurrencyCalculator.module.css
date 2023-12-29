@@ -7,12 +7,11 @@
 }
 
 .currencyBlock {
-
   text-align: center;
+  position: relative;
 }
 
 .currencySelect {
-  top: 0.1px;
   position: relative;
   left: 0.625rem;
   min-width: 30%;
@@ -25,6 +24,7 @@
   color: var(--text-color);
   font-family: "SF Pro Display Regular";
   transition: background-color 0.3s ease-in-out;
+  box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.3);
 }
 
 .currencySelect:hover {
@@ -43,12 +43,12 @@
 .currencyInput {
   position: relative;
   right: 0.625rem;
-  width: 50%;
+  max-width: 50%;
   padding-left: 0.5rem;
   font-size: 1rem;
   border: 0;
   height: 3.25rem;
-  border-radius: 0.5rem;
+  border-radius: 0.7rem;
   background-color: var(--text-color);
   font-family: "SF Pro Display Regular";
 }
@@ -62,7 +62,7 @@
 .currencyResult {
   right: 0.625rem;
   position: relative;
-  border-radius: 0.5rem;
+  border-radius: 0.7rem;
   max-width: 50%;
   padding-left: 0.5rem;
   font-size: 16px;
@@ -76,15 +76,24 @@
 
 .createRequestButton {
   position: relative;
-  width: 100%;
+  width: 65%;
   text-align: center;
-  height: 3.25rem;
-  border-radius: 0.5rem;
+  right: 0.65rem;
+  padding: 0.8rem;
+  border-radius: 0.4rem;
   background-color: var(--buttons-color);
   color: var(--text-color);
   font-family: "SF Pro Display Regular";
   border: none;
   transition: background-color 0.3s ease-in-out;
+  background-image: url("../../assets/icons/ok.svg");
+  background-repeat: no-repeat;
+  background-size: 26px;
+  box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.3);
+}
+
+.createRequestButton:focus {
+  outline: none;
 }
 
 .createRequestButton:hover {
@@ -96,7 +105,4 @@
 }
 
 @media screen and (max-width: 768px) {
-    .currencyInput {
-      width: 55%;
-    }
 }

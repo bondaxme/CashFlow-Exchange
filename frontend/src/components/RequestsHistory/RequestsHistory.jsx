@@ -1,49 +1,61 @@
-import { useEffect, useState } from 'react';
-import { db } from '../../firebase';
-import { collection, getDocs } from 'firebase/firestore';
-import RequestRow from '../RequestRow/RequestRow';
-import classes from './RequestsHistory.module.css';
-import { query, where, orderBy } from 'firebase/firestore';
-import { useAuth } from '../../hooks/useAuth';
-import { doc } from 'firebase/firestore';
+import { useEffect, useState } from "react";
+import { db } from "../../firebase";
+import { collection, getDocs } from "firebase/firestore";
+import RequestRow from "../RequestRow/RequestRow";
+import classes from "./RequestsHistory.module.css";
+import { query, where, orderBy } from "firebase/firestore";
+import { useAuth } from "../../hooks/useAuth";
+import { format } from "date-fns";
+import { onSnapshot } from "firebase/firestore";
 
 const RequestsHistory = ({ showAdmin }) => {
   const [requestsHistory, setRequestsHistory] = useState([]);
   const user = useAuth();
 
-
   useEffect(() => {
     const fetchRequestHistory = async () => {
       try {
-        const requestsCollection = collection(db, 'requests');
+        const requestsCollection = collection(db, "requests");
 
         let requestsQuery = null;
         if (showAdmin) {
           requestsQuery = query(
             requestsCollection,
-            orderBy('timestamp', 'desc')
+            orderBy("timestamp", "desc")
           );
-
-
         } else {
           requestsQuery = query(
-              requestsCollection,
-              where('userId', '==', user.uid),
-              orderBy('timestamp', 'desc')
+            requestsCollection,
+            where("userId", "==", user.uid),
+            orderBy("timestamp", "desc")
           );
         }
-        
-        const querySnapshot = await getDocs(requestsQuery);
 
-        const historyData = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
+        const unsubscribe = onSnapshot(requestsQuery, (querySnapshot) => {
+          const historyData = querySnapshot.docs.map((doc) => {
+            const { timestamp, ...rest } = doc.data();
 
+            const formattedDate = format(timestamp.toDate(), "yyyy-MM-dd");
+            const formattedTime = format(timestamp.toDate(), "HH:mm:ss");
 
-        setRequestsHistory(historyData);
+            const shortId = doc.id.slice(-4);
+
+            return {
+              id: doc.id,
+              shortId: shortId,
+              date: formattedDate,
+              time: formattedTime,
+              ...rest,
+            };
+          });
+
+          setRequestsHistory(historyData);
+        });
+        return () => {
+          unsubscribe();
+        };
       } catch (error) {
-        console.error('Error fetching request history:', error.message);
+        console.error("Error fetching request history:", error.message);
       }
     };
 
@@ -52,47 +64,27 @@ const RequestsHistory = ({ showAdmin }) => {
 
   return (
     <div className={classes.requestsHistory}>
-      <table>
+      <table className={classes.table}>
         <thead>
-          <tr className={classes.header}>
-            <th className={classes.label}>From</th>
-            <th className={classes.label}>To</th>
-            <th className={classes.label}>Am1</th>
-            <th className={classes.label}>Am2</th>
-            <th className={classes.label}>Time</th>
-            <th className={classes.label}>Status</th>
-          </tr>
+          {requestsHistory.length > 0 ? (
+            <tr className={classes.header}>
+              <th className={classes.label}>ID</th>
+              <th className={classes.label}>From</th>
+              <th className={classes.label}>To</th>
+              <th className={classes.label}>From</th>
+              <th className={classes.label}>To</th>
+              <th className={classes.label}>Date</th>
+              <th className={classes.label}>Time</th>
+              <th className={classes.status}>Status</th>
+            </tr>
+          ) : null}
         </thead>
-        <tbody>
+        <tbody className={classes.tbody}>
           {requestsHistory.map((request) => (
-            <RequestRow key={request.id} request={request} showName={showAdmin} />
+            <RequestRow key={request.id} request={request} />
           ))}
         </tbody>
       </table>
-
-      {/* <div className={classes.header}>
-        <div className={classes.column}>
-          <p className={classes.label}>From</p>
-        </div>
-        <div className={classes.column}>
-          <p className={classes.label}>To</p>
-        </div>
-        <div className={classes.column}>
-          <p className={classes.label}>Am1</p>
-        </div>
-        <div className={classes.column}>
-          <p className={classes.label}>Am2</p>
-        </div>
-        <div className={classes.column}>
-          <p className={classes.label}>Time</p>
-        </div>
-        <div className={classes.column}>
-          <p className={classes.label}>Status</p>
-        </div>
-      </div>
-      {requestsHistory.map((request) => (
-        <RequestRow key={request.id} request={request} showName={showAdmin} />
-      ))} */}
     </div>
   );
 };
