@@ -173,9 +173,12 @@ const SignUpForm = () => {
             <div className={classes.error}>{errors.password}</div>
           </div>
 
-          <button type="submit" className={classes.myBtn}>
-            Sign Up
-          </button>
+          <div className={classes.myBtnCont}>
+            <button type="submit" className={classes.myBtn}>
+              Sign Up
+            </button>
+           <div className={classes.errorGeneral}>{errors.general}</div>
+          </div>
         </form>
       </div>
     </div>
