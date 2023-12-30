@@ -49,6 +49,9 @@ const Header = () => {
               <img className={classes.logo} src={logo} />
             </Link>
             <Link to="/">Home</Link>
+            <Link to="/start-exchange" onClick={handleStartExchange}>
+              Start Exchange
+            </Link>
             <Link to="/exchange-requests">Exchange Requests</Link>
           </div>
         ) : (
