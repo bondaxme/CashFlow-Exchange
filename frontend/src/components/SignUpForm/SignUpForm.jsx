@@ -36,8 +36,8 @@ const SignUpForm = () => {
     let isValid = true;
     const newErrors = {};
 
-    const firstNameRegex = /^[a-zA-Z]+$/;
-    const lastNameRegex = /^[a-zA-Z]+$/;
+    const firstNameRegex = /^[A-Z][a-z]*$/;
+    const lastNameRegex = /^[A-Z][a-z]*$/;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     const validateName = (fieldName, regex) => {
