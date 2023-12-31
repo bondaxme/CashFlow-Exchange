@@ -21,7 +21,7 @@ const ProfileInfo = () => {
   const user = auth.currentUser;
   const currentEmail = user.email;
 
-  const { firstName, lastName, email, currencyDiff, uid, isAuth } = useAuth();
+  const { firstName, lastName, email, currencyDiff, uid } = useAuth();
   const [formData, setFormData] = useState({
     firstName,
     lastName,
