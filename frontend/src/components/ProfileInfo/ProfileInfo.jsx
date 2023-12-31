@@ -202,6 +202,13 @@ const ProfileInfo = () => {
 
   return (
     <div className={classes.profileInfoContainer}>
+      {!auth.currentUser.emailVerified ? (
+        <div className={classes.verifyEmail}>
+          <p>
+            Verify your email to get all features
+          </p>
+        </div>
+      ) : null}
       <div className={classes.profileInfoHeader}>
         <h2>Your Profile</h2>
       </div>

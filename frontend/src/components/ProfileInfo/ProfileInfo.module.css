@@ -5,6 +5,15 @@
   box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.3);
   background-color: #c5c4c4;
   border-radius: 1rem;
+  position: relative;
+}
+
+.verifyEmail {
+  position: absolute;
+  bottom: 5px;
+  font-size: 14px;
+  color: #9e534a;
+  font-family: "SF Pro Display Regular";
 }
 
 .fullName,
