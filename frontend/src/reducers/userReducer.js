@@ -1,8 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  firstName: null,
-  lastName: null,
+  username: null,
   email: null,
   currencyDiff: {
     USD: null,
@@ -19,16 +18,14 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action) => {
-      state.firstName = action.payload.firstName;
-      state.lastName = action.payload.lastName;
+      state.username = action.payload.username;
       state.email = action.payload.email;
       state.currencyDiff = action.payload.currencyDiff;
       state.isAdmin = action.payload.isAdmin;
       state.uid = action.payload.uid;
     },
     removeUser: (state) => {
-      state.firstName = null;
-      state.lastName = null;
+      state.username = null;
       state.email = null;
       state.currencyDiff = {
         USD: null,
