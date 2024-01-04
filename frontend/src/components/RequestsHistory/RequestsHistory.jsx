@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { db } from "../../firebase";
-import { collection, getDocs } from "firebase/firestore";
+import { collection } from "firebase/firestore";
 import RequestRow from "../RequestRow/RequestRow";
 import classes from "./RequestsHistory.module.css";
 import { query, where, orderBy } from "firebase/firestore";
