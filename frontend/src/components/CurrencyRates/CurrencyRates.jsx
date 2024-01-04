@@ -45,8 +45,7 @@ const CurrencyRates = () => {
         <thead>
           <tr className={classes.tableRow}>
             <th className={classes.tableHeader}>Currency</th>
-            <th className={classes.tableHeader}>Purchase</th>
-            <th className={classes.tableHeader}>Sale</th>
+            <th className={classes.tableHeader}>Rate</th>
           </tr>
         </thead>
         <tbody>
@@ -63,9 +62,6 @@ const CurrencyRates = () => {
                 </div>
               </td>
               <td className={classes.tableFields}>{rate.toFixed(2)}</td>
-              <td className={classes.tableFields}>
-                {(rate + 0.01 * rate).toFixed(2)}
-              </td>
             </tr>
           ))}
         </tbody>

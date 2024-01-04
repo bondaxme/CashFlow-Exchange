@@ -11,15 +11,13 @@ import { useNavigate } from "react-router-dom";
 
 const SignUpForm = () => {
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
+    username: "",
     email: "",
     password: "",
   });
 
   const [errors, setErrors] = useState({
-    firstName: "",
-    lastName: "",
+    username: "",
     email: "",
     password: "",
   });
@@ -36,8 +34,7 @@ const SignUpForm = () => {
     let isValid = true;
     const newErrors = {};
 
-    const firstNameRegex = /^[A-Z][a-z]*$/;
-    const lastNameRegex = /^[A-Z][a-z]*$/;
+    const usernameRegex = /^[a-zA-Z0-9_.]+$/;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     const validateName = (fieldName, regex) => {
@@ -47,14 +44,14 @@ const SignUpForm = () => {
       }
     };
 
-    validateName("firstName", firstNameRegex);
-    validateName("lastName", lastNameRegex);
+    validateName("username", usernameRegex);
     validateName("email", emailRegex);
 
-    const passwordRegex = /^[a-zA-Z0-9!@#$%^&*]{6,16}$/;
+    const passwordRegex = /^[a-zA-Z0-9!@#$%^&*]{8,16}$/;
+
     if (!passwordRegex.test(formData.password)) {
       newErrors.password =
-        "Password must be 6-16 characters long, contain at least one number and one special character";
+        "Password must be 8-16 characters long, contain only numbers, letters and special characters";
       isValid = false;
     }
 
@@ -84,8 +81,7 @@ const SignUpForm = () => {
         await setDoc(
           userRef,
           {
-            firstName: formData.firstName,
-            lastName: formData.lastName,
+            username: formData.username,
             email: formData.email,
             currencyDiff: {
               USD: null,
@@ -101,7 +97,6 @@ const SignUpForm = () => {
           }
         );
 
-        console.log("User registered successfully:", user);
         console.log("Verification email sent. Please verify your email.");
         navigate("/");
       } catch (error) {
@@ -130,23 +125,12 @@ const SignUpForm = () => {
             <input
               className={classes.input}
               type="text"
-              name="firstName"
-              value={formData.firstName}
+              name="username"
+              value={formData.username}
               onChange={handleInputChange}
-              placeholder="First Name"
+              placeholder="Username"
             />
-            <div className={classes.error}>{errors.firstName}</div>
-          </div>
-          <div className={classes.formGroup}>
-            <input
-              className={classes.input}
-              type="text"
-              name="lastName"
-              value={formData.lastName}
-              onChange={handleInputChange}
-              placeholder="Last Name"
-            />
-            <div className={classes.error}>{errors.lastName}</div>
+            <div className={classes.error}>{errors.username}</div>
           </div>
           <div className={classes.formGroup}>
             <input
