@@ -1,4 +1,4 @@
-.currencyCalculator {
+.calc {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -11,9 +11,21 @@
   position: relative;
 }
 
-.currencySelect {
+.exchangeBtn {
   position: relative;
-  left: 0.625rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  border: 0;
+  transition: background-color 0.15s ease-in-out;
+}
+
+.exchangeBtn:hover {
+  background-color: var(--buttons-hover-color);
+}
+
+.currencySelectLeft, .currencySelectRight {
+  position: relative;
   min-width: 30%;
   height: 3.25rem;
   padding: 0.5rem;
@@ -27,11 +39,26 @@
   box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.3);
 }
 
-.currencySelect:hover {
+.currencySelectLeft {
+  left: 1.325rem
+}
+
+.currencySelectRight {
+  left: 0.125rem;
+}
+
+
+.info {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.8rem;
+}
+
+.currencySelectLeft:hover, .currencySelectRight:hover {
   background-color: var(--buttons-hover-color);
 }
 
-.currencySelect:focus {
+.currencySelectLeft:focus, .currencySelectRight:focus {
   color: var(--text-color);
 }
 
@@ -42,7 +69,6 @@
 
 .currencyInput {
   position: relative;
-  right: 0.625rem;
   max-width: 50%;
   padding-left: 0.5rem;
   font-size: 1rem;
@@ -54,13 +80,14 @@
 }
 
 .currencyInput:focus,
-.currencySelect:focus,
+.currencySelectLeft:focus,
+.currencySelectRight:focus,
 .currencyResult:focus {
   outline: none;
 }
 
 .currencyResult {
-  right: 0.625rem;
+  right: 0.925rem;
   position: relative;
   border-radius: 0.7rem;
   max-width: 50%;
@@ -105,4 +132,27 @@
 }
 
 @media screen and (max-width: 768px) {
+  .calc {
+    flex-direction: column;
+    max-width: 23.625rem;
+  }
+
+  .currencyBlock {
+    width: 16rem;;
+    margin: 0.325rem 0;
+  }
+
+  .currencySelectLeft, .currencySelectRight {
+    left: 0.625rem;
+  }
+
+  .currencyInput, .currencyResult {
+    right: 0.625rem;
+  }
+
+  .createRequestButton {
+    width: 1rem;
+    right: 0;
+  }
+
 }
