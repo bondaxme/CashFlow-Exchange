@@ -121,7 +121,7 @@ body {
   background-color: var(--background-color);
   min-height: 100vh;
   position: relative;
-  padding-bottom: 240px;
+  padding-bottom: 265px;
   font-family: "SF Pro Display Regular";
 }
 ol,
@@ -220,4 +220,11 @@ table {
   src: local("SF-Pro-Display-Medium"),
     url("assets/fonts/SF Pro Display/SF-Pro-Display-Medium.otf")
       format("opentype");
+}
+
+@media screen and (max-width: 768px) {
+  body {
+    padding-bottom: 330px;
+  }
+  
 }

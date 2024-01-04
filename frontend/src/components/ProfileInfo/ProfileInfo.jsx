@@ -3,7 +3,7 @@ import { useAuth } from "../../hooks/useAuth";
 import classes from "./ProfileInfo.module.css";
 import { useNavigate } from "react-router-dom";
 import { db } from "../../firebase";
-import { doc } from "firebase/firestore";
+import { deleteDoc, doc } from "firebase/firestore";
 import { updateDoc } from "firebase/firestore";
 import { useEffect } from "react";
 import {
@@ -21,10 +21,9 @@ const ProfileInfo = () => {
   const user = auth.currentUser;
   const currentEmail = user.email;
 
-  const { firstName, lastName, email, currencyDiff, uid } = useAuth();
+  const { username, email, currencyDiff, uid, isAuth } = useAuth();
   const [formData, setFormData] = useState({
-    firstName,
-    lastName,
+    username,
     email,
     currencyDiff,
     curPassword: "",
@@ -32,8 +31,7 @@ const ProfileInfo = () => {
   });
 
   const [errors, setErrors] = useState({
-    firstName: "",
-    lastName: "",
+    username: "",
     email: "",
     curPassword: "",
     newPassword: "",
@@ -58,8 +56,7 @@ const ProfileInfo = () => {
   useEffect(() => {
     if (uid) {
       setFormData({
-        firstName,
-        lastName,
+        username,
         email,
         currencyDiff,
       });
@@ -85,10 +82,9 @@ const ProfileInfo = () => {
   const validateForm = () => {
     let isValid = true;
     const newErrors = {};
-    const firstNameRegex = /^[A-Z][a-z]*$/;
-    const lastNameRegex = /^[A-Z][a-z]*$/;
+    const usernameRegex = /^[a-zA-Z0-9_.]+$/;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const passwordRegex = /^[a-zA-Z0-9!@#$%^&*]{6,16}$/;
+    const passwordRegex = /^[a-zA-Z0-9!@#$%^&*]{8,16}$/;
 
     const validateName = (fieldName, regex) => {
       if (!formData[fieldName].trim() || !regex.test(formData[fieldName])) {
@@ -112,13 +108,12 @@ const ProfileInfo = () => {
     const validatePassword = (fieldName, regex) => {
       if (!regex.test(formData[fieldName]) && formData[fieldName].trim()) {
         newErrors[fieldName] =
-          "Password must be 6-16 characters long, contain at least one number and one special character";
+          "Password must be 8-16 characters long, contain only numbers, letters and special characters";
         isValid = false;
       }
     };
 
-    validateName("firstName", firstNameRegex);
-    validateName("lastName", lastNameRegex);
+    validateName("username", usernameRegex);
     validateName("email", emailRegex);
 
     ["USD", "EUR", "PLN", "GBP"].forEach((currency) =>
@@ -138,8 +133,7 @@ const ProfileInfo = () => {
     if (validateForm()) {
       try {
         await updateDoc(doc(db, "users", uid), {
-          firstName: formData.firstName,
-          lastName: formData.lastName,
+          username: formData.username,
           currencyDiff: {
             USD: formData.currencyDiff.USD || null,
             EUR: formData.currencyDiff.EUR || null,
@@ -173,20 +167,22 @@ const ProfileInfo = () => {
       } catch (error) {
         console.error("Error updating profile:", error.message);
         if (
-          error.code === "auth/missing-password" ||
           error.code === "auth/invalid-credential"
         ) {
           setErrors((prevErrors) => ({
             ...prevErrors,
             curPassword: "Invalid password",
           }));
-        }
-        if (error.code === "auth/weak-password") {
+        } else if (error.code === "auth/too-many-requests") {
           setErrors((prevErrors) => ({
             ...prevErrors,
-            newPassword: "Password should be at least 6 characters",
+            curPassword: "Too many requests. Try again later",
           }));
-        }
+        } else if (error.code === "auth/missing-password")
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            curPassword: "Enter your password",
+          }));
       }
     }
   };
@@ -199,6 +195,39 @@ const ProfileInfo = () => {
       console.error("Error signing out:", error.message);
     }
   };
+
+  const handleDeleteAccount = async () => {
+    try {
+      const credential = EmailAuthProvider.credential(
+        currentEmail,
+        formData.curPassword
+      );
+      await reauthenticateWithCredential(user, credential);
+      await deleteDoc(doc(db, "users", uid));
+      navigate("/");
+      await user.delete();
+    } catch (error) {
+        console.error("Error deleting account:", error.message);
+      if (
+        error.code === "auth/invalid-credential"
+      ) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          curPassword: "Invalid password",
+        }));
+      } else if (error.code === "auth/missing-password") {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          curPassword: "Enter your password",
+        }));
+      } else if (error.code === "auth/too-many-requests") {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          curPassword: "Too many requests. Try again later",
+        }));
+      }
+    }
+  }
 
   return (
     <div className={classes.profileInfoContainer}>
@@ -213,33 +242,19 @@ const ProfileInfo = () => {
         <h2>Your Profile</h2>
       </div>
       <form className={classes.profileInfoForm} onSubmit={handleSubmit}>
-        <div className={classes.fullName}>
-          <label className={classes.fullNameLabel}>
-            First Name:
-            <input
-              className={classes.fullNameInput}
-              type="text"
-              name="firstName"
-              value={formData.firstName}
-              onChange={handleChange}
-              placeholder={firstName}
-            />
-            <p className={classes.error}>{errors.firstName}</p>
-          </label>
-
-          <label className={classes.fullNameLabel}>
-            Last Name:
-            <input
-              className={classes.fullNameInput}
-              type="text"
-              name="lastName"
-              value={formData.lastName}
-              onChange={handleChange}
-              placeholder={lastName}
-            />
-            <p className={classes.error}>{errors.lastName}</p>
-          </label>
-        </div>
+        <label className={classes.profileInfoLabel}>
+          Username:
+          <input
+            className={classes.profileInfoInput}
+            type="text"
+            name="username"
+            value={formData.username}
+            onChange={handleChange}
+            placeholder={username}
+            autoComplete="username"
+          />
+          <p className={classes.error}>{errors.username}</p>
+        </label>
 
         <label className={classes.profileInfoLabel}>
           Email:
@@ -359,10 +374,19 @@ const ProfileInfo = () => {
           <button
             className={classes.profileInfoSignoutBtn}
             onClick={handleSignOut}
+            type="button"
           >
             Sign Out
           </button>
+          <button
+            className={classes.profileInfoDeleteBtn}
+            onClick={handleDeleteAccount}
+            type="button"
+          >
+            Delete account
+          </button>
         </div>
+
       </form>
     </div>
   );

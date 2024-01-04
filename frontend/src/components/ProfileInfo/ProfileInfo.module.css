@@ -10,7 +10,7 @@
 
 .verifyEmail {
   position: absolute;
-  bottom: 5px;
+  bottom: 3px;
   font-size: 14px;
   color: #9e534a;
   font-family: "SF Pro Display Regular";
@@ -148,23 +148,27 @@
 .profileInfoFooter {
   margin-top: 1.25rem;
   text-align: center;
+  display: flex;
+  justify-content: space-between;
 }
 
-.profileInfoSignoutBtn {
-  background-color: #9e534a;
+.profileInfoSignoutBtn, .profileInfoDeleteBtn {
+  background-color: #94534c;
   color: var(--text-color);
   padding: 0.625rem;
   border: none;
   border-radius: 0.75rem;
   cursor: pointer;
   font-size: 16px;
+  width: 49%;
   transition: background-color 0.3s;
   font-family: "SF Pro Display Regular";
   box-shadow: 0 0 0.325rem rgba(0, 0, 0, 0.3);
 }
 
-.profileInfoSignoutBtn:hover {
-  background-color: #683631;
+
+.profileInfoSignoutBtn:hover, .profileInfoDeleteBtn:hover {
+  background-color: #68342f;
 }
 
 .currBlock {

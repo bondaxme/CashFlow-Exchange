@@ -1,5 +1,5 @@
 .mainCon {
-  max-width: 40rem;
+  max-width: 34rem;
   padding: 0rem;
 }
 
@@ -8,7 +8,7 @@
   margin-bottom: 0.625rem;
   text-align: center;
   color: var(--text-color);
-  margin-top: 4rem;
+  margin-top: 2rem;
 }
 
 .table {

@@ -29,8 +29,7 @@ function App() {
             const data = snapshot.data();
             dispatch(
               setUser({
-                firstName: data.firstName,
-                lastName: data.lastName,
+                username: data.username,
                 email: user.email,
                 currencyDiff: data.currencyDiff,
                 isAdmin: data.isAdmin,
