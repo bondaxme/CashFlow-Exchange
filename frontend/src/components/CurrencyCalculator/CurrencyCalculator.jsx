@@ -5,6 +5,7 @@ import classes from "./CurrencyCalculator.module.css";
 import { serverTimestamp } from "firebase/firestore";
 import { useAuth } from "../../hooks/useAuth";
 import { collection, addDoc } from "firebase/firestore";
+import exchangeSvg from "../../assets/icons/exchange.svg";
 
 const CurrencyCalculator = ({ showCreateButton }) => {
   const [currencies, setCurrencies] = useState([]);
@@ -68,15 +69,20 @@ const CurrencyCalculator = ({ showCreateButton }) => {
     }
   };
 
+  const handleExchangeClick = () => {
+    setSourceCurrency(targetCurrency);
+    setTargetCurrency(sourceCurrency);
+  };
+
   const handleCreateRequest = async () => {
-    if (amount !== "") {
+    if (amount !== "" && sourceCurrency !== targetCurrency) {
       try {
         const requestsCollection = collection(db, "requests");
 
         await addDoc(requestsCollection, {
           sourceCurrency,
           targetCurrency,
-          amount: parseFloat(amount),
+          amount: (parseFloat(amount) + parseFloat(amount / 100)).toFixed(2),
           convertedAmount: parseFloat(convertedAmount),
           userId: user.uid,
           timestamp: serverTimestamp(),
@@ -92,53 +98,66 @@ const CurrencyCalculator = ({ showCreateButton }) => {
 
   return (
     <div className={classes.currencyCalculator}>
-      <div className={classes.currencyBlock}>
-        <select
-          className={classes.currencySelect}
-          value={sourceCurrency}
-          onChange={(e) => handleCurrencyChange(e, "source")}
-        >
-          {currencies.map((currency) => (
-            <option key={currency} value={currency}>
-              {currency}
-            </option>
-          ))}
-        </select>
-        <input
-          className={classes.currencyInput}
-          type="text"
-          value={amount}
-          onChange={handleAmountChange}
-          placeholder="Enter amount"
+      <div className={classes.calc}>
+        <div className={classes.currencyBlock}>
+          <select
+            className={classes.currencySelectLeft}
+            value={sourceCurrency}
+            onChange={(e) => handleCurrencyChange(e, "source")}
+          >
+            {currencies.map((currency) => (
+              <option key={currency} value={currency}>
+                {currency}
+              </option>
+            ))}
+          </select>
+          <input
+            className={classes.currencyInput}
+            type="text"
+            value={amount}
+            onChange={handleAmountChange}
+            placeholder="Enter amount"
+          />
+        </div>
+        <img
+          src={exchangeSvg}
+          className={classes.exchangeBtn}
+          alt="Exchange"
+          onClick={handleExchangeClick}
         />
+        <div className={classes.currencyBlock}>
+          <select
+            className={classes.currencySelectRight}
+            value={targetCurrency}
+            onChange={(e) => handleCurrencyChange(e, "target")}
+          >
+            {currencies.map((currency) => (
+              <option className={classes.option} key={currency} value={currency}>
+                {currency}
+              </option>
+            ))}
+          </select>
+          <input
+            className={classes.currencyResult}
+            type="text"
+            value={convertedAmount}
+            readOnly
+            placeholder="You receive"
+          />
+        </div>
+        <div className={classes.currencyBlock}>
+          {showCreateButton ? (
+            <button
+              className={classes.createRequestButton}
+              onClick={handleCreateRequest}
+            ></button>
+          ) : null}
+        </div>
       </div>
-      <div className={classes.currencyBlock}>
-        <select
-          className={classes.currencySelect}
-          value={targetCurrency}
-          onChange={(e) => handleCurrencyChange(e, "target")}
-        >
-          {currencies.map((currency) => (
-            <option className={classes.option} key={currency} value={currency}>
-              {currency}
-            </option>
-          ))}
-        </select>
-        <input
-          className={classes.currencyResult}
-          type="text"
-          value={convertedAmount}
-          readOnly
-          placeholder="You receive"
-        />
-      </div>
-      <div className={classes.currencyBlock}>
-        {showCreateButton ? (
-          <button
-            className={classes.createRequestButton}
-            onClick={handleCreateRequest}
-          ></button>
-        ) : null}
+      <div>
+        <p className={classes.info}>
+          Comission for exchange is 1% of the amount: {(amount / 100).toFixed(2)} {sourceCurrency}
+        </p>
       </div>
     </div>
   );
